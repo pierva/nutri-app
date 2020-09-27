@@ -36,6 +36,7 @@ if(!db_url || db_url === ""){
     db_url = `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`
 }
 
+console.log(db_url);
 db.mongoose
     .connect(db_url, {
         useNewUrlParser: true,
@@ -70,7 +71,7 @@ function initial () {
                 if (err) {
                     console.log("error", err)
                 }
-                console.log("added 'user' to roles collection")       
+                console.log("added 'admin' to roles collection")       
             })
         }
     })
