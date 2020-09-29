@@ -77,10 +77,14 @@ function initial () {
     })
 }
 
-
+/** ROUTES CONFIGURATION */
 app.get('/', (req, res) => {
     res.send('Server is listening')
 })
+
+/** Authorization and authentication routes */
+require('./routes/auth.routes')(app);
+// require('./routes/user.routes')(app);
 
 
 const PORT = process.env.PORT || 8080
