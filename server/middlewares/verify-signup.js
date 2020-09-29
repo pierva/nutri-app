@@ -48,7 +48,7 @@ verifySignUp.checkDuplicateUsernameOrEmail = (req, res, next) => {
 
 verifySignUp.checkRoles = (req, res, next) => {
     if (req.body.roles) {
-        for (let role in req.body.roles) {
+        for (const role of req.body.roles) {
             if(!ROLES.includes(role)) {
                 res.status(400).send({
                     message: `Error! Role ${role} does not exist in db!`

@@ -45,7 +45,7 @@ authJwt.isAdmin = (req, res, next) => {
                     return
                 }
 
-                for (let role in roles) {
+                for (const role of roles) {
                     if (role === "admin") {
                         next()
                         return
