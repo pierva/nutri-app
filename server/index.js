@@ -51,6 +51,9 @@ db.mongoose
         process.exit()
     })
 
+/**
+ * Configure database to include custom roles of "user" and "admin"
+ */
 function initial () {
     Role.estimatedDocumentCount((err, count) => {
         if(!err && count === 0) {
@@ -83,8 +86,8 @@ app.get('/', (req, res) => {
 })
 
 /** Authorization and authentication routes */
-require('./routes/auth.routes')(app);
-// require('./routes/user.routes')(app);
+require('./routes/auth.routes')(app)
+require('./routes/user.routes')(app)
 
 
 const PORT = process.env.PORT || 8080
