@@ -21,7 +21,7 @@ authJwt.verifyToken = (req, res, next) => {
                 message: 'Unauthorized!'
             })
         }
-        req.userId = decoded.userId
+        req.userId = decoded.id
         next()
     })
 }
@@ -34,19 +34,17 @@ authJwt.isAdmin = (req, res, next) => {
             })
             return
         }
-
         Role.find(
             {
-                _id: { $in: user.rolest}
+                _id: { $in: user.roles}
             },
             (err, roles) => {
                 if (err) {
                     res.status(500).send({ message: err })
                     return
                 }
-
                 for (const role of roles) {
-                    if (role === "admin") {
+                    if (role.name === "admin") {
                         next()
                         return
                     }
