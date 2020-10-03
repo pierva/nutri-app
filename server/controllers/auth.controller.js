@@ -94,9 +94,8 @@ exports.signin = (req, res) => {
       })
 
       let authorities = []
-
-      for (let user in user.roles) {
-        authorities.push("ROLE_" + user.name.toUpperCase())
+      for (const role of user.roles) {
+        authorities.push("ROLE_" + role.name.toUpperCase())
       }
       res.status(200).send({
         id: user._id,
