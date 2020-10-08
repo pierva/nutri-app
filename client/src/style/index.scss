@@ -1,5 +1,7 @@
 @import './resets';
 @import './theme';
+@import "~bootstrap/scss/bootstrap";
+
 body {
   margin: 0;
   background-color: $background-color;
