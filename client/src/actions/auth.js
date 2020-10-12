@@ -37,3 +37,36 @@ export function register (username, email, password) {
     return dispatch(hideLoading())
   }
 }
+
+export function login (username, password) {
+  return async (dispatch, getState) => {
+    dispatch(showLoading())
+    try {
+      const user = await AuthService.login(username, password)
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: { user }
+      })
+    } catch (e) {
+      dispatch(hideLoading())
+      const message = (e.response && e.response.data 
+        && e.response.data.message) || e.message || e.toString()
+      dispatch({
+        type: LOGIN_FAIL
+      })
+
+      return dispatch({
+        type: SET_MESSAGE,
+        payload: message
+      })
+    }
+  }
+}
+
+export function logout() {
+  AuthService.logout()
+
+  dispatch({
+    type: LOGOUT
+  })
+}
