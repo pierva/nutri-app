@@ -1,3 +1,5 @@
+import { showLoading, hideLoading } from 'react-redux-loading'
+
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -8,3 +10,30 @@ import {
 } from "./types"
 
 import AuthService from "../services/auth.service"
+
+export function register (username, email, password) {
+  return async (dispatch, getState) => {
+    dispatch(showLoading())
+    try {
+      const response = await AuthService.register(username, email, password)
+      dispatch({
+        type: SET_MESSAGE,
+        payload: response.data.message
+      })
+    } catch (e) {
+      dispatch(hideLoading())
+      const message = (e.response && e.response.data 
+        && e.response.data.message) || e.message || e.toString()
+      dispatch( 
+        {
+          type: REGISTER_FAIL
+        }
+      )
+      return dispatch({
+        type: SET_MESSAGE,
+        payload: message
+      })
+    }
+    return dispatch(hideLoading())
+  }
+}
