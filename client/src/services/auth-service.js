@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { isStorageAvailable } from '../utils'
+import isStorageAvailable from '../utils'
 import {API_URL} from './endpoint'
 
 /**
