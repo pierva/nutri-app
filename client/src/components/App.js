@@ -3,7 +3,7 @@ import '../style/index.scss';
 
 function App() {
   return (
-    <div className="">
+    <div className="container">
       NutriApp
     </div>
   );
