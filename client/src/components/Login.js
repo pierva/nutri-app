@@ -5,23 +5,11 @@ import CheckButton from "react-validation/build/button"
 
 import AuthService from "../services/auth-service"
 
-import { isEmail } from "validator"
-
 const required = value => {
   if (!value) {
     return (
       <div className="alert alert-danger" role="alert">
         This field is required!
-      </div>
-    )
-  }
-}
-
-const email = value => {
-  if (!isEmail(value)) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        This is not a valid email.
       </div>
     )
   }
@@ -36,25 +24,25 @@ export default class Login extends Component {
     message: ''
   }
 
-  onChangeUsername(e) {
-    this.setState({
+  onChangeUsername = (e) => {
+    this.setState(() => ({
       username: e.target.value
-    })
+    }))
   }
 
-  onChangePassword(e) {
-    this.setState({
+  onChangePassword = (e) => {
+    this.setState(() => ({
       password: e.target.value
-    })
+    }))
   }
 
-  handleLogin(e) {
+  handleLogin = (e) => {
     e.preventDefault()
 
-    this.setState({
+    this.setState(() => ({
       message: '',
       loading: true
-    })
+    }))
 
     this.form.validateAll()
 
@@ -68,16 +56,16 @@ export default class Login extends Component {
           const resMessage = (error.response && error.response.data && 
               error.response.data.message) || error.message || error.toString()
           
-          this.setState({
+          this.setState(() => ({
             loading: false,
             message: resMessage
-          })
+          }))
         }
       )
     } else {
-      this.setState({
+      this.setState(() => ({
         loading: false
-      })
+      }))
     }
   }
 
