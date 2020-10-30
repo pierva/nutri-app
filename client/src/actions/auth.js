@@ -9,7 +9,7 @@ import {
   SET_MESSAGE,
 } from "./types"
 
-import AuthService from "../services/auth.service"
+import AuthService from "../services/auth-service"
 
 export function register (username, email, password) {
   return async (dispatch, getState) => {
