@@ -3,8 +3,10 @@ import Form from "react-validation/build/form"
 import Input from "react-validation/build/input"
 import CheckButton from "react-validation/build/button"
 import { isEmail } from "validator"
+import { connect } from 'react-redux'
 
-import AuthService from '../services/auth-service'
+// import AuthService from '../services/auth-service'
+import { register } from '../actions/auth'
 
 const required = value => {
   if (!value) {
@@ -48,7 +50,7 @@ const vpassword = value => {
 }
 
 
-export default class Register extends Component {
+class Register extends Component {
   state = {
     username: '',
     email: '',
@@ -80,39 +82,35 @@ export default class Register extends Component {
     e.preventDefault()
 
     this.setState(() => ({
-      message: '',
+      // message: '',
       succesful: false
     }))
 
     this.form.validateAll()
 
     if(this.checkBtn.context._errors.length === 0) {
-      AuthService.register(
-        this.state.username,
-        this.state.email,
-        this.state.password
-      )
-      .then(
-        response => {
-          this.setState(() => ({
-            message: response.data.message,
-            succesful: true
-          }))
-        },
-        error => {
-          const resMessage = (error.response && error.response.data &&
-            error.response.data.message) || error.message || error.toString()
-
-          this.setState(() => ({
-            succesful: false,
-            message: resMessage
-          }))
-        }
-      )
+      this.props
+        .dispatch(
+          register(
+            this.state.username,
+            this.state.email,
+            this.state.password
+          ))
+      .then(() => {
+        this.setState(() => ({
+          succesful: true
+        }))
+      })
+      .catch(() => {
+        this.setState(() => ({
+          succesful: false
+        }))
+      })
     }
   }
 
   render() {
+    const { message } = this.props
     return (
       <div className="col-md-12">
         <div className="card card-container">
@@ -172,7 +170,7 @@ export default class Register extends Component {
               </div>
             )}
 
-            {this.state.message && (
+            {message && (
               <div className="form-group">
                 <div
                   className={
@@ -182,7 +180,7 @@ export default class Register extends Component {
                   }
                   role="alert"
                 >
-                  {this.state.message}
+                  {message}
                 </div>
               </div>
             )}
@@ -198,3 +196,12 @@ export default class Register extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  const { message } = state.message
+  return {
+    message
+  }
+}
+
+export default connect(mapStateToProps)(register)
