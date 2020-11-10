@@ -64,9 +64,10 @@ export function login (username, password) {
 }
 
 export function logout() {
-  AuthService.logout()
-
-  dispatch({
-    type: LOGOUT
-  })
+  return (dispatch) => {
+    AuthService.logout()
+    dispatch({
+      type: LOGOUT
+    })
+  }
 }
