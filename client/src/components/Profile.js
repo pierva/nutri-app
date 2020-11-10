@@ -1,23 +1,15 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import AuthService from '../services/auth-service'
 
-export default class Profile extends Component {
-
-  // Consider componetDidMount lifecycle
-  state = {
-    currentUser: AuthService.getCurrentUser()
-  }
-
+class Profile extends Component {
   render() {
 
-    const { currentUser } = this.state
+    const { user: currentUser } = this.props
 
     if (!currentUser) {
-      return (
-        <div className="container text-center mt-5">
-          <h3>No user logged in</h3>
-        </div>
-      )
+      return <Redirect to='/login' />
     }
 
     return (
@@ -49,3 +41,12 @@ export default class Profile extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  const { user } = state.auth
+  return {
+    user
+  }
+}
+
+export default connect(mapStateToProps)(Profile)
