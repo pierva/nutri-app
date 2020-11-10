@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import isStorageAvailable from '../utils'
-import {API_URL} from './endpoint'
+import {AUTH_API_URL} from './endpoint'
 
 /**
  *  !!!!! UPDATE THIS SERVICE TO USE COOKIES RATHER THAN LOCAL STORAGE !!!!
@@ -11,7 +11,7 @@ class AuthService {
   async login(username, password) {
     try {
       const response = await axios
-        .post(API_URL + "signin", { username, password })
+        .post(AUTH_API_URL + "signin", { username, password })
       if (response.data.accessToken) {
         if(isStorageAvailable()){
           localStorage.setItem("user", JSON.stringify(response.data))
@@ -31,7 +31,7 @@ class AuthService {
   } 
 
   register(username, email, password) {
-    return axios.post(API_URL + 'signup', {
+    return axios.post(AUTH_API_URL + 'signup', {
       username,
       email,
       password

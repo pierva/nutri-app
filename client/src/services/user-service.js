@@ -1,19 +1,19 @@
 import axios from 'axios'
 import authHeader from './auth-header'
-import { API_URL } from './endpoint'
+import { CONT_API_URL } from './endpoint'
 
 
 class UserService {
   getPublicContent() {
-    return axios.get(API_URL + 'all')
+    return axios.get(CONT_API_URL + 'all')
   }
 
   getUserBoard() {
-    return axios.get(API_URL + 'user', { headers: authHeader() })
+    return axios.get(CONT_API_URL + 'user', { headers: authHeader() })
   }
 
   getAdminBoard() {
-    return axios.get(API_URL + 'admin', { headers: authHeader() })
+    return axios.get(CONT_API_URL + 'admin', { headers: authHeader() })
   }
 }
 
