@@ -204,4 +204,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(register)
+export default connect(mapStateToProps)(Register)
